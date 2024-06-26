@@ -19,7 +19,7 @@ func NewUpdater(cfg *config.Config, log *logger.Logger) *Updater {
 		config:     cfg,
 		logger:     log,
 		ipResolver: ip.NewIPResolver(),
-		dnsClient:  dns.NewDNSClient(cfg.DNSProvider, cfg.APIKey, cfg.Email),
+		dnsClient:  dns.NewDNSClient(cfg.DNSProvider, cfg.APIKey, cfg.Email, cfg.ProjectID),
 	}
 }
 
