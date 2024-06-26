@@ -21,12 +21,22 @@ This project implements a Dynamic DNS (DDNS) service in Golang, designed to auto
 
    Update the `config.json` file with your DNS provider credentials and domain details:
 
+  <b>For Cloudflare</b>
    ```json
    {
-       "dns_provider": "cloudflare", // or "google"
+       "dns_provider": "cloudflare",
        "api_key": "cloudflare_api_key",
-       "email": "osmantunahan@icloud.com", // Only needed for Cloudflare
-       "project_id": "google_project_id", // Only needed for Google Cloud DNS
+       "email": "osmantunahan@icloud.com",
+       "domain": "awoken.dev",
+       "log_level": "info"
+   }
+   ```
+
+  <b>For Google</b>
+   ```json
+   {
+       "dns_provider": "google",
+       "project_id": "google_project_id",
        "domain": "awoken.dev",
        "log_level": "info"
    }
