@@ -34,11 +34,14 @@ func (g *GenericDNSClient) UpdateDNSRecord(domain, ip string) error {
 	switch g.provider {
 	case "cloudflare":
 		return g.updateCloudflareDNS(domain, ip)
+	case "google":
+		return g.updateGoogleDNS(domain, ip)
 	default:
 		return errors.New("unsupported DNS provider")
 	}
 }
 
+// Example of updating a DNS record for Cloudflare
 func (g *GenericDNSClient) updateCloudflareDNS(domain, ip string) error {
 	zoneID, err := g.getCloudflareZoneID(domain)
 	if err != nil {
@@ -50,6 +53,7 @@ func (g *GenericDNSClient) updateCloudflareDNS(domain, ip string) error {
 		return err
 	}
 
+	// Construct the request to update Cloudflare DNS record
 	url := fmt.Sprintf("https://api.cloudflare.com/client/v4/zones/%s/dns_records/%s", zoneID, recordID)
 	body := map[string]string{
 		"type":    "A",
@@ -84,6 +88,7 @@ func (g *GenericDNSClient) updateCloudflareDNS(domain, ip string) error {
 }
 
 func (g *GenericDNSClient) getCloudflareZoneID(domain string) (string, error) {
+	// Extract the base domain
 	domainParts := strings.Split(domain, ".")
 	baseDomain := domainParts[len(domainParts)-2] + "." + domainParts[len(domainParts)-1]
 
@@ -158,6 +163,7 @@ func (g *GenericDNSClient) getCloudflareRecordID(zoneID, domain string) (string,
 	return "", errors.New("record ID not found")
 }
 
+// Example of updating a DNS record for Google Cloud DNS
 func (g *GenericDNSClient) updateGoogleDNS(domain, ip string) error {
 	zoneID, err := g.getGoogleDNSZoneID(domain)
 	if err != nil {
@@ -166,6 +172,7 @@ func (g *GenericDNSClient) updateGoogleDNS(domain, ip string) error {
 
 	recordName := domain + "."
 
+	// Construct the request to update Google Cloud DNS record
 	url := fmt.Sprintf("https://dns.googleapis.com/dns/v1/projects/%s/managedZones/%s/rrsets/%s/A", g.projectID, zoneID, recordName)
 	body := map[string]interface{}{
 		"kind":    "dns#resourceRecordSet",
