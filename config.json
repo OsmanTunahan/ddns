@@ -1,0 +1,7 @@
+{
+  "dns_provider": "cloudflare",
+  "api_key": "cloudflare_api_key",
+  "email": "osmantunahan@icloud.com",
+  "domain": "awoken.dev",
+  "log_level": "info"
+}
