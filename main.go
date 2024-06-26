@@ -1,5 +1,13 @@
 package main
 
+import (
+	"ddns/config"
+	"log"
+)
+
 func main() {
-	// first commit
+	cfg, err := config.LoadConfig("config.json")
+	if err != nil {
+		log.Fatalf("Failed to load configuration: %v", err)
+	}
 }
